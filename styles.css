@@ -1,0 +1,21 @@
+#map{
+	height: 70vh;
+	width: 90vw;
+	margin: auto;
+}
+#slider_card{
+	width: 90vw;
+	margin: auto;
+	height: 15vh;
+}
+.mdl-card{
+	min-height: 1px !important;
+}
+.mdl-slider__container{
+	width:90%;
+}
+.wrapper{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
