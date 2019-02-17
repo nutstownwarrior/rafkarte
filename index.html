@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="mdl-cell mdl-cell--8-col mdl-cell--4-col-phone wrapper">
                                     <label for="date_slider" id="date">Datum</label>
-                                    <input class="mdl-slider mdl-js-slider" type="range" min="1" max="731" value="0" tabindex="0" id="date_slider">
+                                    <input class="mdl-slider mdl-js-slider" type="range" min="1" max="1827" value="0" tabindex="0" id="date_slider">
                                 </div>
                             </div>
                         </div>
@@ -123,7 +123,22 @@ var yellowIcon = new L.Icon({
 });
 //Marker
 var markers = [
-	{day: 248 , label: "Schleyer Entführung", marker: L.marker([50.941278, 6.958281], {icon: redIcon}).bindPopup("<h5>5.September 1977</h5><p>Entführung Hanns Martin Schleyer</p><a href='Artikel/Entführung Hanns Martin Schleyer/Dokument1.html'>Mehr erfahren</a>").openPopup()},
+	{day: 1668 , label: "Interview Sanitäter", marker: L.marker([48.938626, 9.078074], {icon: blackIcon}).bindPopup("<h5>25. Juli 1980</h5><p>Unterriexingen auf der Straße Untermberg(K 1684)</p><a href='Artikel/Interview Rettungssanitäter/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 467 , label: "Bahnhof Erinnerung", marker: L.marker([48.960835, 9.063454], {icon: violetIcon}).bindPopup("<h5>11.April 1977</h5><p>Bahnhofsgegend Sachsenheim</p><a href='Artikel/Erinnerungen Bahnhof/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 468 , label: "Sachsenheim Erinnerung", marker: L.marker([48.9603579, 9.064320], {icon: violetIcon}).bindPopup("<h5>12.April 1977</h5><p>Sachsenheim: Erinnerungen von Anwohnern</p><a href='Artikel/Erinnerungen Sachsenheim/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 335 , label: "Sachsenheim Erinnerung", marker: L.marker([50.435036 , 8.668842], {icon: yellowIcon}).bindPopup("<h5>30.November 1976</h5><p>Butzbach</p><a href='Artikel/Struktur Butzbach/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 1 , label: "Jemen", marker: L.marker([15.552727 , 48.516388], {icon: yellowIcon}).bindPopup("<h5>1976</h5><p>Südjemen</p><a href='Artikel/Struktur Jemen/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 367 , label: "Stammheim", marker: L.marker([48.847362 , 9.150884], {icon: yellowIcon}).bindPopup("<h5>1977</h5><p>Stammheim</p><a href='Artikel/Struktur Stammheim/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 406 , label: "Langenstraße", marker: L.marker([48.775344 , 9.174668], {icon: yellowIcon}).bindPopup("<h5>9. Februar 1977</h5><p>,,Büro“ Langenstraße 3 Stuttgart</p><a href='Artikel/Struktur Langenstraße/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 420 , label: "Langenstraße", marker: L.marker([48.775344 , 9.174668], {icon: yellowIcon}).bindPopup("<h5>23. Februar 1977</h5><p>,,Büro“ Langenstraße 3 Stuttgart</p><a href='Artikel/Struktur Langenstraße 2/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 611 , label: "Köln", marker: L.marker([50.931795 , 6.892951], {icon: yellowIcon}).bindPopup("<h5>2. September 1977</h5><p>Köln- Braunsfeld</p><a href='Artikel/Struktur Köln/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 613 , label: "Köln 2", marker: L.marker([50.927060 , 6.866000], {icon: yellowIcon}).bindPopup("<h5>4. September 1977</h5><p>Köln-Junkersdorf</p><a href='Artikel/Struktur Köln 2/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 516 , label: "Oberusel", marker: L.marker([50.193270 , 8.570010], {icon: yellowIcon}).bindPopup("<h5>30.Mai 1977</h5><p>Oberursel, Oberhöchststädterstraße 69</p><a href='Artikel/Struktur Oberusel/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 548 , label: "Frankfurt-Westend", marker: L.marker([50.112489  , 8.666001], {icon: yellowIcon}).bindPopup("<h5>1.Juli 1977</h5><p>Frankfurt-Westend, Zimmerweg 8</p><a href='Artikel/Struktur Frankfurt/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 317 , label: "Landeck/Tirol", marker: L.marker([47.140570 , 10.565580], {icon: yellowIcon}).bindPopup("<h5>12.November 1976</h5><p>Landeck/Tirol</p><a href='Artikel/Struktur Tirol/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 367 , label: "Stammheim", marker: L.marker([48.847362 , 9.150884], {icon: yellowIcon}).bindPopup("<h5>1977</h5><p>Stammheim</p><a href='Artikel/Struktur Stammheim 2/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 348 , label: "Wien", marker: L.marker([48.208174 , 16.373819], {icon: yellowIcon}).bindPopup("<h5>13.Dezember 1976</h5><p>Wien</p><a href='Artikel/Struktur Wien/article.html'>Mehr erfahren</a>").openPopup()},
+    {day: 611 , label: "Köln", marker: L.marker([50.932104 , 6.956326], {icon: yellowIcon}).bindPopup("<h5>2.September 1977</h5><p>Köln, Weidmarkt</p><a href='Artikel/Struktur Köln 3/article.html'>Mehr erfahren</a>").openPopup()},
 ]
 var day_date = 0;
 var allMarkers = L.markerClusterGroup();
@@ -135,7 +150,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     id: 'mapbox.streets',
     accessToken: 'pk.eyJ1IjoibnV0c3Rvd253YXJyaW9yIiwiYSI6ImNqcmhneHc2eTJ2YjI0M3BnZzJwaGNicmoifQ.kVZC63yORhts2ATl08ksbg'
 }).addTo(mymap);
-//var markerCluster = L.markerClusterGroup();
     
 mymap.addLayer(allMarkers);
 for(var i = 0; i < markers.length ; i++){
@@ -144,7 +158,7 @@ for(var i = 0; i < markers.length ; i++){
 allMarkers.clearLayers();
     
 slider.oninput = function() {
-	var date = new Date(1977, 0, slider.value);
+	var date = new Date(1976, 0, slider.value);
 	date_display.innerHTML = date.toLocaleDateString();
 	day_date = slider.value;
 	showMarkers();
@@ -153,7 +167,7 @@ slider.oninput = function() {
 function markerButton(){ 	
 	date_display.innerHTML = "Datum";
 	slider.MaterialSlider.change("0");
-	day_date = 365;
+	day_date = 1827;
 	showMarkers();
 }
 
