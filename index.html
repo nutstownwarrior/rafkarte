@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="mdl-cell mdl-cell--8-col mdl-cell--4-col-phone wrapper">
                                     <label for="date_slider" id="date">Datum</label>
-                                    <input class="mdl-slider mdl-js-slider" type="range" min="1" max="365" value="0" tabindex="0" id="date_slider">
+                                    <input class="mdl-slider mdl-js-slider" type="range" min="1" max="731" value="0" tabindex="0" id="date_slider">
                                 </div>
                             </div>
                         </div>
@@ -124,10 +124,6 @@ var yellowIcon = new L.Icon({
 //Marker
 var markers = [
 	{day: 248 , label: "Schleyer Entführung", marker: L.marker([50.941278, 6.958281], {icon: redIcon}).bindPopup("<h5>5.September 1977</h5><p>Entführung Hanns Martin Schleyer</p><a href='Artikel/Entführung Hanns Martin Schleyer/Dokument1.html'>Mehr erfahren</a>").openPopup()},
-    {day: 291 , label: "Stammheim", marker: L.marker([48.849 ,9.156]).bindPopup("<h5>18.Oktober 1977</h5><p>Todesnacht von Stammheim</p><a href='Artikel/Todesnacht von Stammheim/Dokument2.html'>Mehr erfahren</a>").openPopup()},
-    {day: 10 , label: "Stammheim", marker: L.marker([48.848 ,9.157]).bindPopup("<h5>Test1</h5>").openPopup()},
-    {day: 100 , label: "Stammheim", marker: L.marker([48.847 ,9.158]).bindPopup("<h5>Test2</h5>").openPopup()},
-    {day: 200 , label: "Stammheim", marker: L.marker([48.846 ,9.159]).bindPopup("<h5>Test3</h5>").openPopup()},
 ]
 var day_date = 0;
 var allMarkers = L.markerClusterGroup();
