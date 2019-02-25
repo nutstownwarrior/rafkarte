@@ -15,12 +15,13 @@
     <title>RAF Karte</title>
 </head>
 
-<body onclick="openFullscreen()">
+<body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
             <div class="mdl-layout__header-row">
                 <span class="mdl-layout-title">RAF Karte</span>
                 <div class="mdl-layout-spacer"></div>
+                <button onclick="openFullscreen()" class="mdl-button--accent mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Vollbild</button>
             </div>
         </header>
         <div class="mdl-layout__drawer">
@@ -445,24 +446,30 @@
     }
 
     function openFullscreen() {
-        if (isMobileDevice) {
+        if (window.innerHeight == screen.height) {
+            if (document.exitFullscreen) {
+            document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { /* Firefox */
+            document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+            document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE/Edge */
+            document.msExitFullscreen();
+            }
+        }
+        else{
             if (elem.requestFullscreen) {
-                elem.requestFullscreen();
+            elem.requestFullscreen();
             } else if (elem.mozRequestFullScreen) {
-                /* Firefox */
-                elem.mozRequestFullScreen();
+            /* Firefox */
+            elem.mozRequestFullScreen();
             } else if (elem.webkitRequestFullscreen) {
-                /* Chrome, Safari and Opera */
-                elem.webkitRequestFullscreen();
+            /* Chrome, Safari and Opera */
+            elem.webkitRequestFullscreen();
             } else if (elem.msRequestFullscreen) {
-                /* IE/Edge */
-                elem.msRequestFullscreen();
+            /* IE/Edge */
+            elem.msRequestFullscreen();
             }
         }
     }
-
-    function isMobileDevice() {
-        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-    };
-
 </script>
