@@ -45,3 +45,11 @@
 .demo-footer .mdl-mini-footer--link-list a {
   font-size: 13px;
 }
+img{
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
+#source{
+    text-align: center;
+}
