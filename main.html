@@ -1,220 +1,468 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="styles.css">
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-        crossorigin=""/>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-		<link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-teal.min.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
-        <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
-		<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-        <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-        crossorigin=""></script>
-        <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>RAF Karte</title>
-	</head>
-    <body onclick="openFullscreen()">
-        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-            <header class="mdl-layout__header">
-                <div class="mdl-layout__header-row">
-                    <span class="mdl-layout-title">RAF Karte</span>
-                    <div class="mdl-layout-spacer"></div>
-                </div>
-            </header>
-            <div class="mdl-layout__drawer">
-                <span class="mdl-layout-title">Navigation</span>
-                <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link" href="Sonstige/Legende/explanation.html">Legende</a>
-                    <a class="mdl-navigation__link" href="Sonstige/Entstehung%20der%20RAF/origin.html">Einführung</a>
-                    <a class="mdl-navigation__link" href="Sonstige/Organisation%20und%20Struktur/structure.html">Organisation und Struktur</a>
-                    <a class="mdl-navigation__link" href="Sonstige/Beurteilung/assessment.html">Beurteilung</a>
-                    <a class="mdl-navigation__link" href="Sonstige/Ausblick/outlook.html">Ausblick</a>
-                    <a class="mdl-navigation__link" href="Sonstige/Benutzte Tools/tools.html">Datenschutzerklärung</a>
-                    <a class="mdl-navigation__link" href="Sonstige/Quellen/sources.html">Quellen</a>
-                </nav>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.red-teal.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAF Karte</title>
+</head>
+
+<body onclick="openFullscreen()">
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title">RAF Karte</span>
+                <div class="mdl-layout-spacer"></div>
             </div>
-            <main class="mdl-layout__content">
-                <div class="page-content">
-                    <div class="mdl-grid">
-                        <!-- Karten card -->
-                        <div class="mdl-cell mdl-cell--12-col">
-                            <div id="map" class="mdl-card mdl-shadow--4dp"></div>
-                        </div>
-                        <!-- Slider card -->
-                        <div class="mdl-cell mdl-cell--12-col">
-                            <div id="slider_card" class="mdl-card mdl-shadow--4dp mdl-grid">
-                                <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone wrapper">
-                                    <button onclick="markerButton()" class="mdl-button--colored mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="marker_button">Alle Marker</button>
-                                </div>
-                                <div class="mdl-cell mdl-cell--8-col mdl-cell--4-col-phone wrapper">
-                                    <label for="date_slider" id="date">Datum</label>
-                                    <input class="mdl-slider mdl-js-slider" type="range" min="1" max="1827" value="0" tabindex="0" id="date_slider">
-                                </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Navigation</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="Sonstige/Legende/explanation.html">Legende</a>
+                <a class="mdl-navigation__link" href="Sonstige/Entstehung%20der%20RAF/origin.html">Einführung</a>
+                <a class="mdl-navigation__link" href="Sonstige/Organisation%20und%20Struktur/structure.html">Organisation und Struktur</a>
+                <a class="mdl-navigation__link" href="Sonstige/Beurteilung/assessment.html">Beurteilung</a>
+                <a class="mdl-navigation__link" href="Sonstige/Ausblick/outlook.html">Ausblick</a>
+                <a class="mdl-navigation__link" href="Sonstige/Benutzte Tools/tools.html">Datenschutzerklärung</a>
+                <a class="mdl-navigation__link" href="Sonstige/Quellen/sources.html">Quellen</a>
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <div class="mdl-grid">
+                    <!-- Karten card -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div id="map" class="mdl-card mdl-shadow--4dp"></div>
+                    </div>
+                    <!-- Slider card -->
+                    <div class="mdl-cell mdl-cell--12-col">
+                        <div id="slider_card" class="mdl-card mdl-shadow--4dp mdl-grid">
+                            <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-phone wrapper">
+                                <button onclick="markerButton()" class="mdl-button--colored mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" id="marker_button">Alle Marker</button>
+                            </div>
+                            <div class="mdl-cell mdl-cell--8-col mdl-cell--4-col-phone wrapper">
+                                <label for="date_slider" id="date">Datum</label>
+                                <input class="mdl-slider mdl-js-slider" type="range" min="1" max="1827" value="0" tabindex="0" id="date_slider">
                             </div>
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
-    </body>
+            </div>
+        </main>
+    </div>
+</body>
+
 </html>
 <script>
-var mymap = L.map('map').setView([51.3061635, 9.4847365], 6);
-var slider = document.getElementById("date_slider");
-var date_display = document.getElementById("date");
-//Marker Icons
-var redIcon = new L.Icon({
-	iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-red.png',
-	shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
-});
-var blackIcon = new L.Icon({
-	iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-black.png',
-	shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
-});
-var greenIcon = new L.Icon({
-	iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-green.png',
-	shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
-});
-var greyIcon = new L.Icon({
-	iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-grey.png',
-	shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
-});
-var orangeIcon = new L.Icon({
-	iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-orange.png',
-	shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
-});
-var violetIcon = new L.Icon({
-	iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-violet.png',
-	shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
-});
-var yellowIcon = new L.Icon({
-	iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-yellow.png',
-	shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
-	iconSize: [25, 41],
-	iconAnchor: [12, 41],
-	popupAnchor: [1, -34],
-	shadowSize: [41, 41]
-});
-//Marker
-var markers = [
-	{day: 1668 , label: "Interview Sanitäter", marker: L.marker([48.938626, 9.078074], {icon: blackIcon}).bindPopup("<h5>25. Juli 1980</h5><p>Interview Rettungssanitäter</p><a href='Artikel/Interview Rettungssanitäter/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 467 , label: "Bahnhof Erinnerung", marker: L.marker([48.960835, 9.063454], {icon: violetIcon}).bindPopup("<h5>11.April 1977</h5><p>Sachsenheim: Jürgen Marggraf</p><a href='Artikel/Erinnerungen Bahnhof/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 468 , label: "Sachsenheim Erinnerung", marker: L.marker([48.9603579, 9.064320], {icon: violetIcon}).bindPopup("<h5>12.April 1977</h5><p>Sachsenheim: Erinnerungen von Anwohnern</p><a href='Artikel/Erinnerungen Sachsenheim/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 335 , label: "Sachsenheim Erinnerung", marker: L.marker([50.435036 , 8.668842], {icon: yellowIcon}).bindPopup("<h5>30.November 1976</h5><p>Butzbach</p><a href='Artikel/Struktur Butzbach/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 1 , label: "Jemen", marker: L.marker([15.552727 , 48.516388], {icon: yellowIcon}).bindPopup("<h5>1976</h5><p>Südjemen</p><a href='Artikel/Struktur Jemen/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 367 , label: "Stammheim", marker: L.marker([48.847362 , 9.150884], {icon: yellowIcon}).bindPopup("<h5>1977</h5><p>Anwälte in Stammheim</p><a href='Artikel/Struktur Stammheim/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 406 , label: "Langenstraße", marker: L.marker([48.775344 , 9.174668], {icon: yellowIcon}).bindPopup("<h5>9. Februar 1977</h5><p>,,Büro“ Langenstraße 3 Stuttgart</p><a href='Artikel/Struktur Langenstraße/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 420 , label: "Langenstraße", marker: L.marker([48.775344 , 9.174668], {icon: yellowIcon}).bindPopup("<h5>23. Februar 1977</h5><p>,,Büro“ Langenstraße 3 Stuttgart</p><a href='Artikel/Struktur Langenstraße 2/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 611 , label: "Köln", marker: L.marker([50.931795 , 6.892951], {icon: yellowIcon}).bindPopup("<h5>2. September 1977</h5><p>Köln- Braunsfeld</p><a href='Artikel/Struktur Köln/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 613 , label: "Köln 2", marker: L.marker([50.927060 , 6.866000], {icon: yellowIcon}).bindPopup("<h5>4. September 1977</h5><p>Köln-Junkersdorf</p><a href='Artikel/Struktur Köln 2/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 516 , label: "Oberusel", marker: L.marker([50.193270 , 8.570010], {icon: yellowIcon}).bindPopup("<h5>30.Mai 1977</h5><p>Oberursel, Oberhöchststädterstraße 69</p><a href='Artikel/Struktur Oberusel/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 548 , label: "Frankfurt-Westend", marker: L.marker([50.112489  , 8.666001], {icon: yellowIcon}).bindPopup("<h5>1.Juli 1977</h5><p>Überfälle auf Waffengeschäfte</p><a href='Artikel/Struktur Frankfurt/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 317 , label: "Landeck/Tirol", marker: L.marker([47.140570 , 10.565580], {icon: yellowIcon}).bindPopup("<h5>12.November 1976</h5><p>Landeck/Tirol</p><a href='Artikel/Struktur Tirol/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 367 , label: "Stammheim", marker: L.marker([48.847362 , 9.150884], {icon: yellowIcon}).bindPopup("<h5>1977</h5><p>Stammheim</p><a href='Artikel/Struktur Stammheim 2/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 348 , label: "Wien", marker: L.marker([48.208174 , 16.373819], {icon: yellowIcon}).bindPopup("<h5>13.Dezember 1976</h5><p>Wien</p><a href='Artikel/Struktur Wien/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 611 , label: "Köln", marker: L.marker([50.932104 , 6.956326], {icon: yellowIcon}).bindPopup("<h5>2.September 1977</h5><p>Köln, Weidmarkt</p><a href='Artikel/Struktur Köln 3/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 466 , label: "Wiesenstraße, Sachsenheim", marker: L.marker([48.962428 , 9.063702], {icon: violetIcon}).bindPopup("<h5>10.April 1977</h5><p>Frau Neumann</p><a href='Artikel/Erinnerungen Sachsenheim Wiesenstraße/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 461 , label: "Wiesenstraße, Sachsenheim", marker: L.marker([48.9945 , 8.899999999999977], {icon: redIcon}).bindPopup("<h5>5.April 1977</h5><p>Schussübungen im Vorfeld des Buback-Attentats in Schützingen</p><a href='Artikel/Schützingen/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 463 , label: "Wiesenstraße, Sachsenheim", marker: L.marker([48.961623839372514 , 9.0627121925354], {icon: redIcon}).bindPopup("<h5>7.April 1977</h5><p>Fund des Fluchtfahrzeugs des Buback-Attentats</p><a href='Artikel/Fluchtfahrzeug/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 461 , label: "Wiesenstraße, Sachsenheim", marker: L.marker([48.95495166522764 , 8.984495713031606], {icon: redIcon}).bindPopup("<h5>5.April und 6. April 1977</h5><p>Sichtung von RAF-Mitgliedern am Kleinglattbacher Bahnübergang</p><a href='Artikel/Bahnübergang/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 463 , label: "Wiesenstraße, Sachsenheim", marker: L.marker([48.9776 , 8.456940000000031], {icon: redIcon}).bindPopup("<h5>7.April 1977</h5><p>Wechsel des Fluchtfahrzeugs in Karlsruhe-Wolfartsweiher</p><a href='Artikel/Karlsruhe/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 463 , label: "Wiesenstraße, Sachsenheim", marker: L.marker([49.01428350837975 , 8.39817226697005], {icon: redIcon}).bindPopup("<h5>7.April 1977</h5><p>Attentat auf Siegfried Buback</p><a href='Artikel/Buback/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 484 , label: "Das Stammheim-Urteil", marker: L.marker([48.854629 , 9.1547888], {icon: redIcon}).bindPopup("<h5>28.April 1977</h5><p>Das Stammheim-Urteil</p><a href='Artikel/Urteil/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 367 , label: "Umfrage auf dem Vaihinger Marktplatz", marker: L.marker([48.9322221 , 8.9565659], {icon: redIcon}).bindPopup("<h5>Umfrage</h5><p>Vaihinger Marktplatz</p><a href='Artikel/Umfrage Marktplatz/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 466 , label: "Durchsuchung der angrenzenden Gebäude", marker: L.marker([48.9624, 9.063580000000002], {icon: violetIcon}).bindPopup("<h5>10. April 1977</h5><p>Durchsuchung der angrenzenden Gebäude</p><a href='Artikel/Durchsuchung der angrenzenden Gebauede/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 465 , label: "Kommentar Bietigheimer Zeitung", marker: L.marker([48.9594444, 9.125833333333334], {icon: violetIcon}).bindPopup("<h5>9. April 1977</h5><p>Kommentare aus der Bietigheimer Zeitung</p><a href='Artikel/Kommentar Bietigheim/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 577 , label: "Ponto Attentat", marker: L.marker([50.1158056, 8.667972222222222], {icon: redIcon}).bindPopup("<h5>30. Juli 1977</h5><p>Ponto-Attentat</p><a href='Artikel/Ponto Attentat/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 603 , label: "Anwaltschaft Karlsruhe", marker: L.marker([49.0018333, 8.384944444444445], {icon: redIcon}).bindPopup("<h5>25. August 1977</h5><p>Gescheiterter Anschlag auf Bundesanwaltschaftsgebäude Karlsruhe</p><a href='Artikel/Anwaltschaft Karlsruhe/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 614 , label: "Schleyer Entführung", marker: L.marker([50.9355278, 6.889833333333333], {icon: redIcon}).bindPopup("<h5>5. September 1977</h5><p>Entführung Hanns Martin Schleyers</p><a href='Artikel/Schleyer Entführung/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 614 , label: "Schleyer Versteck", marker: L.marker([50.9271581, 6.8658461], {icon: yellowIcon}).bindPopup("<h5>5. September 1977</h5><p>Aufenthaltsort Schleyers</p><a href='Artikel/KW Schleyer/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 615 , label: "Schleyer Forderungen", marker: L.marker([50.7185106, 7.1196994], {icon: redIcon}).bindPopup("<h5>6. September 1977</h5><p>Forderungen der Schleyer Entführung</p><a href='Artikel/Forderungen Schleyer/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 616 , label: "Schleyer Forderungen", marker: L.marker([50.9271581, 6.8658461], {icon: redIcon}).bindPopup("<h5>7. September 1977</h5><p>Video Hanns Martin Schleyers</p><a href='Artikel/Video Schleyer/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 658 , label: "Schleyer Forderungen", marker: L.marker([47.7479444, 7.329], {icon: redIcon}).bindPopup("<h5>19. Oktober 1977</h5><p>Schleyers Tod</p><a href='Artikel/Tod Schleyer/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 614, label: "Enzweihingen", marker: L.marker([48.9178889, 8.976472222222222], {icon: violetIcon}).bindPopup("<h5>5. September 1977</h5><p>Polizist Ulmer aus Enzweihingen</p><a href='Artikel/Enzweihingen/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 614, label: "Polizeipraesidium Stuttgart", marker: L.marker([48.8104722, 9.186833333333334], {icon: violetIcon}).bindPopup("<h5>5. September 1977</h5><p>Ulmer nimmt Stelle im Personen und Objektschutz an.</p><a href='Artikel/Polizeipraesidium Stuttgart/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 619, label: "Bestattung Ulmers", marker: L.marker([48.9167778, 8.988555555555555], {icon: violetIcon}).bindPopup("<h5>11. September 1977</h5><p>Bestattung Ulmers</p><a href='Artikel/Bestattung Ulmers/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 618, label: "Bestattung Ulmers", marker: L.marker([48.7786111, 9.183527777777778], {icon: violetIcon}).bindPopup("<h5>10. September 1977</h5><p>Staatsakt im Landtag</p><a href='Artikel/Staatsakt im Landtag/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 652, label: "Landshut", marker: L.marker([42.541017, 4.504955], {icon: redIcon}).bindPopup("<h5>13. Oktober 1977</h5><p>An dieser Position wurde die Landshut entführt</p><a href='Artikel/Landshut/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 656, label: "Todesnacht von Stammheim", marker: L.marker([48.8541389, 9.154361111111111], {icon: blackIcon}).bindPopup("<h5>17. auf 18. Oktober 1977</h5><p>Todesnacht von Stammheim</p><a href='Artikel/Todesnacht Stammheim/article.html'>Mehr erfahren</a>").openPopup()},
-    {day: 1, label: "Versteck Unterriexingen", marker: L.marker([48.941315, 9.053089 ], {icon: yellowIcon}).bindPopup("<h5>Haus im Weinberg</h5><p>Das Haus im Weinberg – ein Planungsquartier?</p><a href='Artikel/Unterriexingen/article.html'>Mehr erfahren</a>").openPopup()},
-]
-var day_date = 0;
-var allMarkers = L.markerClusterGroup();
-var elem = document.documentElement;
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-	minZoom: 5,
-    id: 'mapbox.streets',
-    accessToken: 'pk.eyJ1IjoibnV0c3Rvd253YXJyaW9yIiwiYSI6ImNqcmhneHc2eTJ2YjI0M3BnZzJwaGNicmoifQ.kVZC63yORhts2ATl08ksbg'
-}).addTo(mymap);
+    var mymap = L.map('map').setView([51.3061635, 9.4847365], 6);
+    var slider = document.getElementById("date_slider");
+    var date_display = document.getElementById("date");
+    //Marker Icons
+    var redIcon = new L.Icon({
+        iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-red.png',
+        shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var blackIcon = new L.Icon({
+        iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-black.png',
+        shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var greenIcon = new L.Icon({
+        iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-green.png',
+        shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var greyIcon = new L.Icon({
+        iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-grey.png',
+        shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var orangeIcon = new L.Icon({
+        iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-orange.png',
+        shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var violetIcon = new L.Icon({
+        iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-violet.png',
+        shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    var yellowIcon = new L.Icon({
+        iconUrl: 'Sonstige/Bilder/Marker/marker-icon-2x-yellow.png',
+        shadowUrl: 'Sonstige/Bilder/Marker/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowSize: [41, 41]
+    });
+    //Marker
+    var markers = [{
+            day: 1668,
+            label: "Interview Sanitäter",
+            marker: L.marker([48.938626, 9.078074], {
+                icon: blackIcon
+            }).bindPopup("<h5>25. Juli 1980</h5><p>Interview Rettungssanitäter</p><a href='Artikel/Interview Rettungssanitäter/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 467,
+            label: "Bahnhof Erinnerung",
+            marker: L.marker([48.960835, 9.063454], {
+                icon: violetIcon
+            }).bindPopup("<h5>11.April 1977</h5><p>Sachsenheim: Jürgen Marggraf</p><a href='Artikel/Erinnerungen Bahnhof/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 468,
+            label: "Sachsenheim Erinnerung",
+            marker: L.marker([48.9603579, 9.064320], {
+                icon: violetIcon
+            }).bindPopup("<h5>12.April 1977</h5><p>Sachsenheim: Erinnerungen von Anwohnern</p><a href='Artikel/Erinnerungen Sachsenheim/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 335,
+            label: "Sachsenheim Erinnerung",
+            marker: L.marker([50.435036, 8.668842], {
+                icon: yellowIcon
+            }).bindPopup("<h5>30.November 1976</h5><p>Butzbach</p><a href='Artikel/Struktur Butzbach/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 1,
+            label: "Jemen",
+            marker: L.marker([15.552727, 48.516388], {
+                icon: yellowIcon
+            }).bindPopup("<h5>1976</h5><p>Südjemen</p><a href='Artikel/Struktur Jemen/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 367,
+            label: "Stammheim",
+            marker: L.marker([48.847362, 9.150884], {
+                icon: yellowIcon
+            }).bindPopup("<h5>1977</h5><p>Anwälte in Stammheim</p><a href='Artikel/Struktur Stammheim/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 406,
+            label: "Langenstraße",
+            marker: L.marker([48.775344, 9.174668], {
+                icon: yellowIcon
+            }).bindPopup("<h5>9. Februar 1977</h5><p>,,Büro“ Langenstraße 3 Stuttgart</p><a href='Artikel/Struktur Langenstraße/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 420,
+            label: "Langenstraße",
+            marker: L.marker([48.775344, 9.174668], {
+                icon: yellowIcon
+            }).bindPopup("<h5>23. Februar 1977</h5><p>,,Büro“ Langenstraße 3 Stuttgart</p><a href='Artikel/Struktur Langenstraße 2/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 611,
+            label: "Köln",
+            marker: L.marker([50.931795, 6.892951], {
+                icon: yellowIcon
+            }).bindPopup("<h5>2. September 1977</h5><p>Köln- Braunsfeld</p><a href='Artikel/Struktur Köln/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 613,
+            label: "Köln 2",
+            marker: L.marker([50.927060, 6.866000], {
+                icon: yellowIcon
+            }).bindPopup("<h5>4. September 1977</h5><p>Köln-Junkersdorf</p><a href='Artikel/Struktur Köln 2/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 516,
+            label: "Oberusel",
+            marker: L.marker([50.193270, 8.570010], {
+                icon: yellowIcon
+            }).bindPopup("<h5>30.Mai 1977</h5><p>Oberursel, Oberhöchststädterstraße 69</p><a href='Artikel/Struktur Oberusel/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 548,
+            label: "Frankfurt-Westend",
+            marker: L.marker([50.112489, 8.666001], {
+                icon: yellowIcon
+            }).bindPopup("<h5>1.Juli 1977</h5><p>Überfälle auf Waffengeschäfte</p><a href='Artikel/Struktur Frankfurt/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 317,
+            label: "Landeck/Tirol",
+            marker: L.marker([47.140570, 10.565580], {
+                icon: yellowIcon
+            }).bindPopup("<h5>12.November 1976</h5><p>Landeck/Tirol</p><a href='Artikel/Struktur Tirol/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 367,
+            label: "Stammheim",
+            marker: L.marker([48.847362, 9.150884], {
+                icon: yellowIcon
+            }).bindPopup("<h5>1977</h5><p>Stammheim</p><a href='Artikel/Struktur Stammheim 2/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 348,
+            label: "Wien",
+            marker: L.marker([48.208174, 16.373819], {
+                icon: yellowIcon
+            }).bindPopup("<h5>13.Dezember 1976</h5><p>Wien</p><a href='Artikel/Struktur Wien/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 611,
+            label: "Köln",
+            marker: L.marker([50.932104, 6.956326], {
+                icon: yellowIcon
+            }).bindPopup("<h5>2.September 1977</h5><p>Köln, Weidmarkt</p><a href='Artikel/Struktur Köln 3/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 466,
+            label: "Wiesenstraße, Sachsenheim",
+            marker: L.marker([48.962428, 9.063702], {
+                icon: violetIcon
+            }).bindPopup("<h5>10.April 1977</h5><p>Frau Neumann</p><a href='Artikel/Erinnerungen Sachsenheim Wiesenstraße/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 461,
+            label: "Wiesenstraße, Sachsenheim",
+            marker: L.marker([48.9945, 8.899999999999977], {
+                icon: redIcon
+            }).bindPopup("<h5>5.April 1977</h5><p>Schussübungen im Vorfeld des Buback-Attentats in Schützingen</p><a href='Artikel/Schützingen/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 463,
+            label: "Wiesenstraße, Sachsenheim",
+            marker: L.marker([48.961623839372514, 9.0627121925354], {
+                icon: redIcon
+            }).bindPopup("<h5>7.April 1977</h5><p>Fund des Fluchtfahrzeugs des Buback-Attentats</p><a href='Artikel/Fluchtfahrzeug/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 461,
+            label: "Wiesenstraße, Sachsenheim",
+            marker: L.marker([48.95495166522764, 8.984495713031606], {
+                icon: redIcon
+            }).bindPopup("<h5>5.April und 6. April 1977</h5><p>Sichtung von RAF-Mitgliedern am Kleinglattbacher Bahnübergang</p><a href='Artikel/Bahnübergang/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 463,
+            label: "Wiesenstraße, Sachsenheim",
+            marker: L.marker([48.9776, 8.456940000000031], {
+                icon: redIcon
+            }).bindPopup("<h5>7.April 1977</h5><p>Wechsel des Fluchtfahrzeugs in Karlsruhe-Wolfartsweiher</p><a href='Artikel/Karlsruhe/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 463,
+            label: "Wiesenstraße, Sachsenheim",
+            marker: L.marker([49.01428350837975, 8.39817226697005], {
+                icon: redIcon
+            }).bindPopup("<h5>7.April 1977</h5><p>Attentat auf Siegfried Buback</p><a href='Artikel/Buback/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 484,
+            label: "Das Stammheim-Urteil",
+            marker: L.marker([48.854629, 9.1547888], {
+                icon: redIcon
+            }).bindPopup("<h5>28.April 1977</h5><p>Das Stammheim-Urteil</p><a href='Artikel/Urteil/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 367,
+            label: "Umfrage auf dem Vaihinger Marktplatz",
+            marker: L.marker([48.9322221, 8.9565659], {
+                icon: redIcon
+            }).bindPopup("<h5>Umfrage</h5><p>Vaihinger Marktplatz</p><a href='Artikel/Umfrage Marktplatz/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 466,
+            label: "Durchsuchung der angrenzenden Gebäude",
+            marker: L.marker([48.9624, 9.063580000000002], {
+                icon: violetIcon
+            }).bindPopup("<h5>10. April 1977</h5><p>Durchsuchung der angrenzenden Gebäude</p><a href='Artikel/Durchsuchung der angrenzenden Gebauede/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 465,
+            label: "Kommentar Bietigheimer Zeitung",
+            marker: L.marker([48.9594444, 9.125833333333334], {
+                icon: violetIcon
+            }).bindPopup("<h5>9. April 1977</h5><p>Kommentare aus der Bietigheimer Zeitung</p><a href='Artikel/Kommentar Bietigheim/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 577,
+            label: "Ponto Attentat",
+            marker: L.marker([50.1158056, 8.667972222222222], {
+                icon: redIcon
+            }).bindPopup("<h5>30. Juli 1977</h5><p>Ponto-Attentat</p><a href='Artikel/Ponto Attentat/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 603,
+            label: "Anwaltschaft Karlsruhe",
+            marker: L.marker([49.0018333, 8.384944444444445], {
+                icon: redIcon
+            }).bindPopup("<h5>25. August 1977</h5><p>Gescheiterter Anschlag auf Bundesanwaltschaftsgebäude Karlsruhe</p><a href='Artikel/Anwaltschaft Karlsruhe/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 614,
+            label: "Schleyer Entführung",
+            marker: L.marker([50.9355278, 6.889833333333333], {
+                icon: redIcon
+            }).bindPopup("<h5>5. September 1977</h5><p>Entführung Hanns Martin Schleyers</p><a href='Artikel/Schleyer Entführung/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 614,
+            label: "Schleyer Versteck",
+            marker: L.marker([50.9271581, 6.8658461], {
+                icon: yellowIcon
+            }).bindPopup("<h5>5. September 1977</h5><p>Aufenthaltsort Schleyers</p><a href='Artikel/KW Schleyer/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 615,
+            label: "Schleyer Forderungen",
+            marker: L.marker([50.7185106, 7.1196994], {
+                icon: redIcon
+            }).bindPopup("<h5>6. September 1977</h5><p>Forderungen der Schleyer Entführung</p><a href='Artikel/Forderungen Schleyer/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 616,
+            label: "Schleyer Forderungen",
+            marker: L.marker([50.9271581, 6.8658461], {
+                icon: redIcon
+            }).bindPopup("<h5>7. September 1977</h5><p>Video Hanns Martin Schleyers</p><a href='Artikel/Video Schleyer/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 658,
+            label: "Schleyer Forderungen",
+            marker: L.marker([47.7479444, 7.329], {
+                icon: redIcon
+            }).bindPopup("<h5>19. Oktober 1977</h5><p>Schleyers Tod</p><a href='Artikel/Tod Schleyer/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 614,
+            label: "Enzweihingen",
+            marker: L.marker([48.9178889, 8.976472222222222], {
+                icon: violetIcon
+            }).bindPopup("<h5>5. September 1977</h5><p>Polizist Ulmer aus Enzweihingen</p><a href='Artikel/Enzweihingen/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 614,
+            label: "Polizeipraesidium Stuttgart",
+            marker: L.marker([48.8104722, 9.186833333333334], {
+                icon: violetIcon
+            }).bindPopup("<h5>5. September 1977</h5><p>Ulmer nimmt Stelle im Personen und Objektschutz an.</p><a href='Artikel/Polizeipraesidium Stuttgart/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 619,
+            label: "Bestattung Ulmers",
+            marker: L.marker([48.9167778, 8.988555555555555], {
+                icon: violetIcon
+            }).bindPopup("<h5>11. September 1977</h5><p>Bestattung Ulmers</p><a href='Artikel/Bestattung Ulmers/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 618,
+            label: "Bestattung Ulmers",
+            marker: L.marker([48.7786111, 9.183527777777778], {
+                icon: violetIcon
+            }).bindPopup("<h5>10. September 1977</h5><p>Staatsakt im Landtag</p><a href='Artikel/Staatsakt im Landtag/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 652,
+            label: "Landshut",
+            marker: L.marker([42.541017, 4.504955], {
+                icon: redIcon
+            }).bindPopup("<h5>13. Oktober 1977</h5><p>An dieser Position wurde die Landshut entführt</p><a href='Artikel/Landshut/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 656,
+            label: "Todesnacht von Stammheim",
+            marker: L.marker([48.8541389, 9.154361111111111], {
+                icon: blackIcon
+            }).bindPopup("<h5>17. auf 18. Oktober 1977</h5><p>Todesnacht von Stammheim</p><a href='Artikel/Todesnacht Stammheim/article.html'>Mehr erfahren</a>").openPopup()
+        },
+        {
+            day: 1,
+            label: "Versteck Unterriexingen",
+            marker: L.marker([48.941315, 9.053089], {
+                icon: yellowIcon
+            }).bindPopup("<h5>Haus im Weinberg</h5><p>Das Haus im Weinberg – ein Planungsquartier?</p><a href='Artikel/Unterriexingen/article.html'>Mehr erfahren</a>").openPopup()
+        },
+    ]
+    var day_date = 0;
+    var allMarkers = L.markerClusterGroup();
+    var elem = document.documentElement;
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        minZoom: 5,
+        id: 'mapbox.streets',
+        accessToken: 'pk.eyJ1IjoibnV0c3Rvd253YXJyaW9yIiwiYSI6ImNqcmhneHc2eTJ2YjI0M3BnZzJwaGNicmoifQ.kVZC63yORhts2ATl08ksbg'
+    }).addTo(mymap);
 
-mymap.addLayer(allMarkers);
-for(var i = 0; i < markers.length ; i++){
-		markers[i].marker.addTo(allMarkers);
-	}
-allMarkers.clearLayers();
+    mymap.addLayer(allMarkers);
+    for (var i = 0; i < markers.length; i++) {
+        markers[i].marker.addTo(allMarkers);
+    }
+    allMarkers.clearLayers();
 
-slider.oninput = function() {
-	var date = new Date(1976, 0, slider.value);
-	date_display.innerHTML = date.toLocaleDateString();
-	day_date = slider.value;
-	showMarkers();
-}
+    slider.oninput = function() {
+        var date = new Date(1976, 0, slider.value);
+        date_display.innerHTML = date.toLocaleDateString();
+        day_date = slider.value;
+        showMarkers();
+    }
 
-function markerButton(){
-	date_display.innerHTML = "Datum";
-	slider.MaterialSlider.change("0");
-	day_date = 1827;
-	showMarkers();
-}
+    function markerButton() {
+        date_display.innerHTML = "Datum";
+        slider.MaterialSlider.change("0");
+        day_date = 1827;
+        showMarkers();
+    }
 
-function showMarkers(){
-	allMarkers.clearLayers();
-	for(var i = 0; i < markers.length ; i++){
-		if(markers[i].day <= day_date){
-			markers[i].marker.addTo(allMarkers);
-		}
-	}
-}
+    function showMarkers() {
+        allMarkers.clearLayers();
+        for (var i = 0; i < markers.length; i++) {
+            if (markers[i].day <= day_date) {
+                markers[i].marker.addTo(allMarkers);
+            }
+        }
+    }
 
-function openFullscreen() {
-  if (elem.requestFullscreen) {
-    elem.requestFullscreen();
-  } else if (elem.mozRequestFullScreen) { /* Firefox */
-    elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
-    elem.webkitRequestFullscreen();
-  } else if (elem.msRequestFullscreen) { /* IE/Edge */
-    elem.msRequestFullscreen();
-  }
-}
+    function openFullscreen() {
+        if (isMobileDevice) {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                /* Firefox */
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                /* Chrome, Safari and Opera */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                /* IE/Edge */
+                elem.msRequestFullscreen();
+            }
+        }
+    }
+
+    function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    };
+
 </script>
