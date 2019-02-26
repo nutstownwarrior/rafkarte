@@ -46,11 +46,14 @@
   font-size: 13px;
 }
 
-img{
+img {
     margin-right: auto;
     margin-left: auto;
     display: block;
+    width: 100%;
+    height: auto;
 }
-#source{
+
+#source {
     text-align: center;
 }
